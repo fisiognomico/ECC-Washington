@@ -24,9 +24,9 @@ class EC(object):
 
     def is_valid(self,p):
         """checks if p belongs to ec"""
-        if p == self.zero return True
-        l = (p.y**2) % self.q
-        r = ((p.x**3) + (self.a * p.x) + self.b) % self.q
+        if p == self.zero : return True
+        l = (p[1]**2) % self.q
+        r = ((p[0]**3) + (self.a * p[0]) + self.b) % self.q
         return l == r
 
     def at(self,x):
@@ -37,25 +37,25 @@ class EC(object):
         return Coord(x,y) , Coord(x,my)
 
     def neg(self,p):
-        return Coord(p.x, -p.y % self.q)
+        return Coord(p[0], -p[1] % self.q)
 
-    def add(sef,p1,p2):
+    def add(self,p1,p2):
         
         if p1 == self.zero :  return p2
         if p2 == self.zero :  return p1
 
-        if (p1.x == p2.x) and (p1.y != p2.y or p1.y == 0):
+        if p1[0] == p2[0] and (p1[1] != p2[1] or p1[1] == 0):
             return self.zero
 
-        if p1.x == p2.x:
-            l = (3 * p1.x ** 2 +self.a) * inv(2*p1.y, self.q) % self.q
+        if p1[0] == p2[0]:
+            l = (3 * p1[0] ** 2 +self.a) * inv(2*p1[1], self.q) % self.q
             pass
         else:
-            l = (p2.y-p1.y) * inv (p2.x -p1.x, self.q) % self.q
+            l = (p2[1]-p1[1]) * inv (p2[0] -p1[0], self.q) % self.q
             pass
 
-        x = (l*l -p1.x - p2.x) % self.q
-        y = (l*(p1.x -x)-p1.y) % self.q
+        x = (l*l -p1[0] - p2[0]) % self.q
+        y = (l*(p1[0] -x)-p1[1]) % self.q
 
         return Coord(x,y)
 
@@ -71,11 +71,15 @@ class EC(object):
             pass
         return r
 
-    def order(self,g):
-        assert self.is_valid(g) && g != self.zero
-        for i in xrange(1, self.q +1):
-            if self.mul(g,i) == self.zero:
+    def order(self,p):
+        assert self.is_valid(p) and  p != self.zero
+        hasse = self.q
+        for i in xrange(1, hasse +1):
+            if self.mul(p,i) == self.zero:
                 return i
             pass
+        pass
+        
+        raise Exception("Invalid order")
         pass
 

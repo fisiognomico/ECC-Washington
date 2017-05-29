@@ -52,7 +52,7 @@ def jacobi(b,q):
     m8 = q % 8
     s = -1 if m8 == 3 or m8 == 5 else 1
     #m8 is 0,2,4,6 or 1,7
-    if q % 4 == 3 or and a1 % 4 == 3: s = -s
-    return s if a1 = 1 else s * jacobi(q % a1, a1)
+    if q % 4 == 3 and a1 % 4 == 3: s = -s
+    return s if a1 == 1 else s * jacobi(q % a1, a1)
 
 
