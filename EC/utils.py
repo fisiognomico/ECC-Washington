@@ -39,7 +39,7 @@ def sqrt(n,q):
         pass
     return (r, q-r)
 
-def jacobi(b,q):
+def jacobi(a,q):
     """A quick implementation of the Jacobi symbol
     please refer to algorithm 2.149 of [2] chap2.pdf
     """

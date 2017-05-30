@@ -1,4 +1,4 @@
-from EC import *
+from EC.EC import *
 
 ec = EC(2,3,19)
 
@@ -29,8 +29,17 @@ while(True):
         print k
         break
 
-#result5 = ec.order(p1)
-#print result5
+result5 = ec.order(p1)
+print result5
 
-test = ec.mul(p1,20)
-print (test == ec.zero)
+##For part 6 we can reason in this way
+##Using Lagrange Thm (Group Theory) we
+##can prove that the number of points 
+## on EC is a multiple of the order of P
+##Using g for order of P
+## N = k * g for some k
+##Using Hasse Thm we know that
+##abs(N - q -1) < 2*sqrt(q)
+##So knowing that N must be less than ~28
+##the factor k must be 1
+## So the  number of points on EC is 20
